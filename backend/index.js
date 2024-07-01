@@ -5,6 +5,7 @@ import cors from 'cors'
 import { connectToDatabase } from './db/connectToDB.js'
 import { handleError } from './lib/handleError.js'
 import authenticationRoute from './routes/auth.route.js'
+import userRoutes from './routes/user.route.js'
 dotenv.config()
 
 
@@ -18,13 +19,14 @@ app.use(express.urlencoded({ extended: true })) // accept form data
 
 // routes
 app.use("/api/auth", authenticationRoute)
+app.use("/api/user", userRoutes)
 
 
 // custom error handler
 app.use(handleError)
 
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`SERVER is listening on port ${PORT}`)
-    connectToDatabase()
+    await connectToDatabase()
 })

@@ -28,9 +28,8 @@ export const registerUser = async (req, res, next) => {
         fullName,
         password: hashedPassword,
         email,
-      });
+      })
 
-      newUser.password = null;
       generateTokenAndSetTokens(newUser._id, res);
       return res.status(201).json(newUser);
     }
@@ -51,7 +50,6 @@ export const loginUser = async (req, res, next) => {
         if (!verifyPassword) {
             return res.status(400).json({error: "Password is not correct"})
         }
-
         user.password = null
         generateTokenAndSetTokens(user._id, res)
         return res.status(200).json({message: "Logged In successfully", user})
